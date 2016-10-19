@@ -5,11 +5,12 @@ using Leap;
 public class drivehand : MonoBehaviour {
 
     Controller cont;
-    Hand rightHand;
-    Hand leftHand;
+    public Hand rightHand;
+    public Hand leftHand;
     public float handsAngle;
     public float sin;
     public bool readyOK = false;
+    public bool bikemode = false;
 	// Use this for initialization
 	void Start () {
         cont = new Controller();
@@ -37,8 +38,16 @@ public class drivehand : MonoBehaviour {
 	}
     void checkAngle(Hand r,Hand l)
     {
-        Vector2 handsVector = new Vector2(r.PalmPosition.x - l.PalmPosition.x, r.PalmPosition.y - l.PalmPosition.y);
-        float angle = Vector2.Angle(Vector2.right, handsVector);
+        Vector3 handsVector;
+        if (bikemode)
+        {
+            handsVector = new Vector3(r.PalmPosition.x - l.PalmPosition.x, 0,r.PalmPosition.z-l.PalmPosition.z);
+        }
+        else
+        {
+            handsVector = new Vector3(r.PalmPosition.x - l.PalmPosition.x, r.PalmPosition.y - l.PalmPosition.y);
+        }
+        float angle = Vector3.Angle(Vector2.right, handsVector);
         if (handsVector.y > 0)
             angle = -angle;
         handsAngle = angle;

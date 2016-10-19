@@ -4,10 +4,11 @@ using Leap;
 
 public class Gamemaster : MonoBehaviour {
 
-    public GameObject car;
+    public GameObject beacle;
     public Camera backcamera;
     public Camera seatcamera;
-    public bool first = false;
+    bool first = false;
+    public bool GamemodeBike;
 	// Use this for initialization
 	void Start () {
         
@@ -15,7 +16,8 @@ public class Gamemaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (car.GetComponent<CarDrive>().engine && !first)
+        beacle.GetComponent<CarDrive>().bikemode = GamemodeBike;
+        if (beacle.GetComponent<CarDrive>().engine && !first)
         {
             changeCamera();
             first = true;
